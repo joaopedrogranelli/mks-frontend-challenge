@@ -40,7 +40,7 @@ const ProductList = () => {
 
   return (
     <div className="w-full h-[calc(100vh-101px)] flex justify-center items-center">
-      <div className="max-w-[938px] flex flex-wrap gap-custom">
+      <div className="max-w-[970px] flex flex-wrap gap-custom">
         {products.map((product) => (
           <Card
             key={product.id}

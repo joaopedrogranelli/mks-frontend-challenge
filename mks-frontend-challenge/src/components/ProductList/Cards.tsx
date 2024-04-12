@@ -17,7 +17,7 @@ export function Card({ product, onAddToModal }: CardProps) {
       : product.description;
   return (
     <div className="flex flex-wrap justify-center items-center">
-      <div className="flex flex-col items-center justify-center w-[217.56px] shadow-lg shimmer">
+      <div className="flex flex-col items-center justify-center w-[225px] shadow-lg shimmer">
         <img
           className="w-[111px] h-[138px] object-contain"
           src={product.photo}
