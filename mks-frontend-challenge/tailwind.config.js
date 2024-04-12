@@ -14,6 +14,7 @@ export default {
       darkGray: "#373737",
       black: "#000000",
       lightGray: "#2C2C2C",
+      borderColor: "#BFBFBF",
     },
   },
   plugins: [],

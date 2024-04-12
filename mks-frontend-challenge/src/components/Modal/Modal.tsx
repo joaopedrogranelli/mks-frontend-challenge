@@ -1,6 +1,6 @@
+import { useState, useEffect, useContext } from "react";
 import closeIcon from "../../assets/close.svg";
 import { ModalCard } from "./ModalCard";
-import { useContext } from "react";
 import { CartContext } from "../../Contexts/CartContext";
 
 interface ModalProps {
@@ -9,16 +9,42 @@ interface ModalProps {
 }
 
 export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  const { selectedProducts, removeFromCart } = useContext(CartContext);
+  const { selectedProducts, setSelectedProducts, removeFromCart } =
+    useContext(CartContext);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const handleRemoveProduct = (index: number) => {
     removeFromCart(index);
   };
 
-  const totalPrice = selectedProducts.reduce(
-    (total, product) => total + parseFloat(product.price),
-    0
-  );
+  const handleUpdateQuantity = (index: number, quantity: number) => {
+    const updatedProducts = [...selectedProducts];
+    updatedProducts[index].quantity = quantity;
+    setSelectedProducts(updatedProducts);
+  };
+
+  useEffect(() => {
+    const totalPrice = selectedProducts.reduce(
+      (total, product) =>
+        total + parseFloat(product.price) * (product.quantity || 1),
+      0
+    );
+    setTotalPrice(totalPrice);
+  }, [selectedProducts]);
+
+  useEffect(() => {
+    const handleEscKeyPress = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscKeyPress);
+    };
+  }, [onClose]);
 
   return (
     <div
@@ -42,9 +68,12 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         <div className="overflow-y-auto h-[550px] mt-[50px] ml-[47px] mr-[60px] flex flex-col gap-5 rounded-lg scrollbar-thin scrollbar-thumb-blue scrollbar-track-blue">
           {selectedProducts.map((product, index) => (
             <ModalCard
-              onRemove={() => handleRemoveProduct(index)}
               key={index}
               product={product}
+              onRemove={() => handleRemoveProduct(index)}
+              onUpdateQuantity={(quantity: number) =>
+                handleUpdateQuantity(index, quantity)
+              }
             />
           ))}
         </div>
