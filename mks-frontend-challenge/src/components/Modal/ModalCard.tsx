@@ -26,7 +26,7 @@ export function ModalCard({
   const totalPrice = productPrice * quantity;
 
   return (
-    <div className="relative flex flex-row items-center justify-around bg-white rounded-lg h-[101px] mr-1.5">
+    <div className="relative flex flex-row items-center justify-around bg-white rounded-lg h-[101px] mr-1.5 mt-1.5">
       <img
         className="w-[46px] h-[57px]"
         src={product.photo}

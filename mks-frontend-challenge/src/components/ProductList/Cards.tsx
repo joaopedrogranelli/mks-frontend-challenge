@@ -37,7 +37,7 @@ export function Card({ product, onAddToModal }: CardProps) {
           {limitedDescription}
         </p>
         <button
-          className="w-[218px] h-[31.91px] bg-blue rounded-b-md flex flex-row items-center justify-center gap-3.5"
+          className="w-full h-[31.91px] bg-blue rounded-b-md flex flex-row items-center justify-center gap-3.5"
           onClick={handleAddToCart}
         >
           <img src={shopIcon} alt="Ícone de compra" />
